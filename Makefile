@@ -13,4 +13,13 @@ stop:
 open-console:
 	echo "Go to http://127.0.0.1:2113. Use admin:changeit"
 
+.PHONY: write-event
+write-event:
+	curl -i -d @event.txt "http://127.0.0.1:2113/streams/newstream" -H "Content-Type:application/vnd.eventstore.events+json"
+
+.PHONY: read-event
+read-event:
+	curl -i -H "Accept:application/vnd.eventstore.atom+json" "http://127.0.0.1:2113/streams/newstream"
+	curl -i -H "Accept:application/vnd.eventstore.atom+json" "http://127.0.0.1:2113/streams/newstream/range/1/20"
+
 
